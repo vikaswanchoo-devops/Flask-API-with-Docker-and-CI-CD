@@ -1,7 +1,3 @@
-\# Simple Flask API with Docker
-
-
-
 This repository contains a minimal Flask API packaged with Docker.
 
 
