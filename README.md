@@ -1,5 +1,3 @@
-# Simple Flask API with Docker and CI/CD
-
 ![Docker CI](https://github.com/vikaswanchoo-devops/simple-api/actions/workflows/docker.yml/badge.svg)
 
 This repository contains a minimal Flask API packaged with Docker and automated CI/CD using GitHub Actions.
