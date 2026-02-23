@@ -1,4 +1,4 @@
-name: Build and Push Docker Image
+name: Build, Run, and Push Docker Image
 
 on:
   workflow_dispatch:   # allows manual runs
@@ -24,3 +24,16 @@ jobs:
           context: .
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/simple-api:latest
+
+      - name: Run container for verification
+        run: |
+          docker run -d -p 5000:5000 --name simple-api-test ${{ secrets.DOCKER_USERNAME }}/simple-api:latest
+          sleep 10
+          docker ps
+          docker logs simple-api-test
+          curl -f http://localhost:5000 || (echo "Container test failed" && exit 1)
+
+      - name: Clean up
+        run: |
+          docker stop simple-api-test
+          docker rm simple-api-test
