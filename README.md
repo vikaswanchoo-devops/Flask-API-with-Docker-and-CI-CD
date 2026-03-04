@@ -1,60 +1,37 @@
-# FlaskAPI-Docker-CI-CD
+### Dockerfile Explanation
 
-## Project Overview
-This project is a Flask API that is containerized using Docker and integrated with GitHub Actions for Continuous Integration (CI) and Continuous Deployment (CD).
+The Dockerfile is a script that contains a series of instructions on how to build a Docker image for the Flask API application. Here is a breakdown of its key components:
 
-## Dockerfile Explained
-The `Dockerfile` in this repository sets up the environment for running the Flask API. Below are the key components:
+| Instruction      | Description                                           |
+|------------------|-------------------------------------------------------|
+| FROM             | Specifies the base image to use for the application.  |
+| WORKDIR          | Sets the working directory inside the Docker image.   |
+| COPY             | Copies files from the host into the Docker image.     |
+| RUN              | Executes a command in the image (e.g., installing dependencies). |
+| EXPOSE           | Informs Docker that the container listens on the specified network ports at runtime. |
+| CMD              | Specifies the default command to run when starting the container. |
 
-1. **Base Image**: The Dockerfile starts with a base image that has Python pre-installed. This simplifies the image and ensures necessary packages are available.
-   
-   ```dockerfile
-   FROM python:3.9
-   ```
+### docker.yml Workflow Explanation
 
-2. **Setting Working Directory**: We set `/app` as the working directory where our application will reside.
-   
-   ```dockerfile
-   WORKDIR /app
-   ```
+The `docker.yml` file defines the CI/CD workflow for building and deploying the Dockerized Flask API application. The workflow consists of various steps outlined below:
 
-3. **Copying Files**: The `COPY` instruction copies the necessary files from the local filesystem into the container's filesystem.
-   
-   ```dockerfile
-   COPY requirements.txt .
-   COPY . .
-   ```
+| Step                       | Description                                              |
+|----------------------------|----------------------------------------------------------|
+| Trigger                    | The workflow is triggered by certain events (e.g., push or pull request). |
+| Build                      | The Docker image is built using the Dockerfile.         |
+| Test                       | Runs automated tests to ensure the application behaves as expected. |
+| Deploy                     | Deploys the application to the specified environment (e.g., staging or production). |
 
-4. **Installing Dependencies**: With the `RUN` command, we install the required Python packages specified in `requirements.txt`.
-   
-   ```dockerfile
-   RUN pip install --no-cache-dir -r requirements.txt
-   ```
+### Overall Repository Information
 
-5. **Exposing Port**: The application runs on port 5000, so we expose this port to allow external access.
-   
-   ```dockerfile
-   EXPOSE 5000
-   ```
+This repository contains a Dockerized Flask API application designed to demonstrate Continuous Integration and Continuous Deployment (CI/CD) practices. It allows developers to build, test, and deploy applications in a consistent environment, minimizing the "works on my machine" problem. The key features of this repository include:
 
-6. **Running the Application**: Finally, we define the command to run the Flask application.
-   
-   ```dockerfile
-   CMD ["python", "app.py"]
-   ```
+- **Flask API**: A lightweight WSGI web application framework.
+- **Docker Integration**: Enables containerization of the Flask app.
+- **CI/CD Automation**: Streamlines the process of building, testing, and deploying applications.
 
-## GitHub Actions CI/CD Workflow
-The GitHub Actions workflow defines how the application is built and deployed:
+### Features
 
-- **Triggering Events**: The workflow is triggered on push events to the `main` branch and on pull requests.
- 
-- **Build Step**: The workflow checks out the code, sets up Python, installs dependencies, and builds the Docker image.
+- User-friendly API endpoints
+- Scalable application architecture
 
-- **Testing**: Automated tests are run to ensure that the application behaves as expected.
-
-- **Deployment**: If tests pass, the workflow deploys the application using Docker.
-
-For a full understanding of the GitHub Actions workflow, please refer to the `.github/workflows/main.yml` file in this repository.
-
-## Conclusion
-This project showcases how to set up a Flask API with Docker and automate the CI/CD process using GitHub Actions.
