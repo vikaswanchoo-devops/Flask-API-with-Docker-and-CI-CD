@@ -1,37 +1,36 @@
-### Dockerfile Explanation
+# FlaskAPI-Docker-CI-CD
 
-The Dockerfile is a script that contains a series of instructions on how to build a Docker image for the Flask API application. Here is a breakdown of its key components:
+## Features
+- This project provides a Flask API application.
+- Full CI/CD pipeline using GitHub Actions.
+- Easy to setup and run via Docker.
 
-| Instruction      | Description                                           |
-|------------------|-------------------------------------------------------|
-| FROM             | Specifies the base image to use for the application.  |
-| WORKDIR          | Sets the working directory inside the Docker image.   |
-| COPY             | Copies files from the host into the Docker image.     |
-| RUN              | Executes a command in the image (e.g., installing dependencies). |
-| EXPOSE           | Informs Docker that the container listens on the specified network ports at runtime. |
-| CMD              | Specifies the default command to run when starting the container. |
+## Steps to Run Locally
+1. Clone the repository: `git clone https://github.com/vikaswanchoo-devops/FlaskAPI-Docker-CI-CD.git`
+2. Navigate into the project directory: `cd FlaskAPI-Docker-CI-CD`
+3. Build the Docker image: `docker build -t flaskapi .`
+4. Run the Docker container: `docker run -p 5000:5000 flaskapi`
 
-### docker.yml Workflow Explanation
+## Dockerfile
+The Dockerfile is used to build the Docker image for the Flask application. It includes:  
+- **Base Image**: The application starts from the official Python image.  
+- **Working Directory**: Sets the working directory in the container.  
+- **Dependencies**: Uses `requirements.txt` to install the necessary Python packages.  
+- **Expose Port**: The application listens on port 5000.  
+- **Entry Point**: Defines the command that runs the Flask application.
 
-The `docker.yml` file defines the CI/CD workflow for building and deploying the Dockerized Flask API application. The workflow consists of various steps outlined below:
+## docker.yml Workflow
+The `docker.yml` file configures our GitHub Actions workflow for building and deploying the Docker image: 
+- **Trigger**: The workflow is triggered on push to the main branch.  
+- **Jobs**:  
+  - Build the Docker image  
+  - Log in to Docker Hub  
+  - Push the image to Docker Hub  
+- Each job consists of several steps to ensure the correct building and pushing of the image to the repository.
 
-| Step                       | Description                                              |
-|----------------------------|----------------------------------------------------------|
-| Trigger                    | The workflow is triggered by certain events (e.g., push or pull request). |
-| Build                      | The Docker image is built using the Dockerfile.         |
-| Test                       | Runs automated tests to ensure the application behaves as expected. |
-| Deploy                     | Deploys the application to the specified environment (e.g., staging or production). |
+## Overall Repository Information
+This repository demonstrates how to use Flask with Docker and GitHub Actions to implement a CI/CD pipeline. The primary purpose is to automate the build, test, and deployment process of the Flask application.
 
-### Overall Repository Information
+---
 
-This repository contains a Dockerized Flask API application designed to demonstrate Continuous Integration and Continuous Deployment (CI/CD) practices. It allows developers to build, test, and deploy applications in a consistent environment, minimizing the "works on my machine" problem. The key features of this repository include:
-
-- **Flask API**: A lightweight WSGI web application framework.
-- **Docker Integration**: Enables containerization of the Flask app.
-- **CI/CD Automation**: Streamlines the process of building, testing, and deploying applications.
-
-### Features
-
-- User-friendly API endpoints
-- Scalable application architecture
-
+Documentation last updated: 2026-03-04 09:56:59 UTC
